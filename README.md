@@ -1,0 +1,2 @@
+# emotionDiary
+for record class
