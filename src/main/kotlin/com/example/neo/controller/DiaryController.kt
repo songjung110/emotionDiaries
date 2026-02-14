@@ -2,6 +2,7 @@ package com.example.neo.controller
 
 import com.example.neo.dto.DiaryDto
 import com.example.neo.dto.DiaryRequest
+import com.example.neo.dto.MessageDto
 import com.example.neo.dto.MessageRequest
 import com.example.neo.dto.UserRequest
 import com.example.neo.service.DiaryMessageService
@@ -46,6 +47,14 @@ class DiaryController(
         @RequestBody messageRequest: MessageRequest
     ): Flux<String> {
         val response = diaryMessageService.createMessage(messageRequest)
+        return response
+    }
+
+    @GetMapping("/ai/{diaryId}")
+    fun getDiaryMessages(
+        @PathVariable diaryId: Long
+    ): List<MessageDto>{
+        val response = diaryMessageService.getMessages(diaryId)
         return response
     }
 }
