@@ -1,5 +1,15 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+    --color-primary: #3cb371;
+    --color-primary-dark: #2e8b57;
+    --color-bg-base: #ffffff;
+    --color-bg-subtle: #f2f4f6;
+    --color-text-title: #191f28;
+    --color-text-body: #333d4b;
+    --color-text-sub: #4e5968;
+    --color-text-caption: #8b95a1;
+    --color-error: #ff0000;
 }
 
 * {
