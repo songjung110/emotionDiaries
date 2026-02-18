@@ -39,8 +39,6 @@ function StartPage() {
   
   return (
     
-    <div className={styles.root}>
-      <div className={styles.content}>
         <div className={styles.innerContent}>
           <div className={styles.title}>일기를 통해 <br />내 감정을 알아보세요. </div>
           <form onSubmit={handleSubmit} className={styles.form}>
@@ -53,8 +51,6 @@ function StartPage() {
             <button type={'submit'} className={styles.button}>시작</button>
           </form>
         </div>
-      </div>
-    </div>
   )
 }
 export default StartPage;

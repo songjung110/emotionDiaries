@@ -3,6 +3,7 @@ import StartPage from "./pages/StartPage"
 import DiaryPage from "./pages/DiaryPage"
 import ChatPage from "./pages/ChatPage"
 import MainPage from "./pages/MainPage"
+import Layout from "./pages/Layout"
 import { useCookies } from "react-cookie"
 import UserContext from "./context/UserContext"
 import { useEffect } from "react"
@@ -29,10 +30,12 @@ function App() {
       setUsername
     }}>
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/start" element={<StartPage/ >} />
-        <Route path="/diary" element={<DiaryPage/ >} />
-        <Route path="/chat" element={<ChatPage/ >} />
+        <Route element={<Layout/>}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/start" element={<StartPage/ >} />
+          <Route path="/diary" element={<DiaryPage/ >} />
+          <Route path="/chat" element={<ChatPage/ >} />
+        </Route>
         <Route path="*" element={<Navigate to={'/'} />} />
       </Routes>
     </UserContext.Provider>
