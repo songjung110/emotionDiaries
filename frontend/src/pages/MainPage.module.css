@@ -1,0 +1,92 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex: 1;
+    gap: 32px;
+}
+
+.greeting {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-title);
+}
+
+.calendarContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 0 4px;
+}
+
+.monthTitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text-title);
+}
+
+.navButton {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--color-text-sub);
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--color-bg-subtitle);
+    }
+}
+
+.weekdays {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.weekday {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+    color: var(--color-text-caption);
+    font-weight: 500;
+}
+
+.calendarBody {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.dateCell {
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+    cursor: pointer;
+    border-radius: 14px;
+    font-size: 15px;
+    color: var(--color-text-body);
+    font-weight: 500;
+
+    &:hover {
+        background-color: var(--color-bg-subtitle);
+    }
+}
+
+.dateCellActive {
+    background-color: var(--color-primary);
+    color: #ffffff;
+
+    &:hover {
+        background-color: var(--color-primary-dark);
+    }
+}
