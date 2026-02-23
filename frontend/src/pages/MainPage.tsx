@@ -2,8 +2,10 @@ import { useState } from 'react';
 import useUser from '../hooks/useUser';
 import styles from './MainPage.module.css';
 import { formatDate } from '../utils/date-util';
+import { useNavigate } from 'react-router-dom';
 
 function MainPage() {
+    const navigate = useNavigate();
     const { username } = useUser();
     const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -37,6 +39,14 @@ function MainPage() {
     }
     const handleNextMonthClick = () => {
         setCurrentDate(new Date(year, month + 1, 1));
+    }
+
+    const handleDateClick = (date: Date) => {
+        navigate('/diary', {
+            state: {
+                date
+            }
+        })
     }
     
     return (
@@ -74,7 +84,9 @@ function MainPage() {
                         return (
                             <div 
                                 key={item?.key} 
-                                className={`${styles.dateCell} ${todayKey === item.key ? styles.dateCellActive : ''}`}>
+                                className={`${styles.dateCell} ${todayKey === item.key ? styles.dateCellActive : ''}`}
+                                onClick={() => handleDateClick(item.date)}
+                                >
                                 {item.date.getDate()}
                             </div>
                         )
