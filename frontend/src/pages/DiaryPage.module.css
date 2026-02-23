@@ -1,0 +1,67 @@
+.root{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text-title)
+}
+
+.section {
+    margin-bottom: 24px;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-sub);
+    margin-bottom: 12px;
+}
+
+.emotionButtons {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+
+    /* Hide Scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.canvasContainer {
+    flex: 1;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+
+}
+
+.actionButton {
+    flex: 1;
+}
