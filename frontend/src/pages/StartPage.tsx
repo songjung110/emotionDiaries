@@ -3,6 +3,7 @@ import styles from './StartPage.module.css'
 import { checkUsername } from '../api/userApi';
 import { useNavigate } from 'react-router-dom';
 import useUser from '../hooks/useUser';
+import Button from '../components/Button';
 
 function StartPage() {
   const [usernameInput, setUsernameInput] = useState('')
@@ -48,7 +49,7 @@ function StartPage() {
             placeholder={'이름을 입력해주세요.'}
             className={styles.input}
             />
-            <button type={'submit'} className={styles.button}>시작</button>
+            <Button type={'submit'} size={'large'} fullWidth={true} >시작</Button>
           </form>
         </div>
   )

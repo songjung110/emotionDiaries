@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import p5 from 'p5';
 // @ts-ignore
 import * as brush from 'p5.brush';
+import Button from '../components/Button';
 
 
 const EmotionList = [
@@ -135,19 +136,23 @@ function DiaryPage() {
                 <h2 className={styles.title}>
                     오늘의 감정 그리기
                 </h2>
-                <button onClick={()=>{ navigate(-1)}}>X</button>
+                <Button 
+                    variant={'ghost'} 
+                    onClick={()=>{ navigate(-1)}}
+                >X</Button>
             </header>
             <div className={styles.section}>
                 <span className={styles.label}>감정 선택</span>
                 <div className={styles.emotionButtons}>
                     {EmotionList.map(emotion => (
-                        <button 
+                        <Button 
+                            variant={selectedEmotion === emotion ? "primary" : "outline"}
                             key={emotion}
                             style={{
-                                border: emotion === selectedEmotion ? '2px solid #000000': ''
+                                borderRadius: 99,
                             }}
                             onClick={() => handleEmotionSelect(emotion)}
-                        >{emotion}</button>
+                        >{emotion}</Button>
 
                     ))}
                 </div>
@@ -157,7 +162,7 @@ function DiaryPage() {
                 <div className={styles.label}>배경색</div>
                 <input 
                     type={'color'}
-                    className={styles.colorpicker} 
+                    className={styles.colorPicker} 
                     defaultValue={bgColorRef.current}
                     onChange={event => handleBgColorChange(event.target.value)}
                     />
@@ -167,8 +172,8 @@ function DiaryPage() {
 
 
             <div className={styles.actions}>
-                <button onClick={handleClear} className={styles.actionButton}>지우기</button>
-                <button onClick={handleSave} className={styles.actionButton}>생성하기</button>
+                <Button size={'large'} variant={'secondary'} onClick={handleClear}  className={styles.actionButton}>지우기</Button>
+                <Button size={'large'}  onClick={handleSave} className={styles.actionButton}>생성하기</Button>
             </div>
         </div>
     )
