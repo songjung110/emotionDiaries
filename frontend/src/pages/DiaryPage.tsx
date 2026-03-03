@@ -5,6 +5,9 @@ import p5 from 'p5';
 // @ts-ignore
 import * as brush from 'p5.brush';
 import Button from '../components/Button';
+import { createDiary } from '../api/DiaryApi';
+import useUser from '../hooks/useUser';
+import { formatDate } from '../utils/date-util';
 
 
 const EmotionList = [
@@ -52,6 +55,7 @@ const emotionToBrushConfig: Record<Emotion, BrushConfig> = {
 function DiaryPage() {
     const location = useLocation();
     const navigate = useNavigate();
+    const { username } = useUser();
 
     const canvasParentRef = useRef<HTMLDivElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -67,8 +71,38 @@ function DiaryPage() {
         p5Ref.current?.clear();
         p5Ref.current?.background(bgColorRef.current);
     }
-    const handleSave = () => {
+    const handleSave = async () => {
+        if(!username || !canvasRef.current) return;
 
+        // Extract image
+        const canvas = canvasRef.current;
+        const out = document.createElement("canvas");
+        out.width = canvas.width;
+        out.height = canvas.height;
+
+        const context = out.getContext("2d");
+        if(!context) return;
+
+        // 배경색 채우기 
+        context.fillStyle = bgColorRef.current;
+        context.fillRect(0,0, out.width, out.height);
+
+        context.drawImage(canvas, 0,0);
+
+        // Call api
+        const diary = await createDiary({
+            date: formatDate(date),
+            username
+        });
+
+        // Navigate to chat page
+        navigate("/chat", {
+            replace: true,
+            state: {
+                diaryId: diary.id,
+                initialImage: out.toDataURL("image/png").split(",").pop(),
+            }
+        })
     }
 
     const handleEmotionSelect = (emotion : Emotion) => {
@@ -99,7 +133,7 @@ function DiaryPage() {
                 brush.instance(p);
                 brush.load();
 
-                console.log('set u0')
+                console.log('set up')
             }
             p.draw = () =>{
                 if(!p.mouseIsPressed) return;
@@ -173,7 +207,7 @@ function DiaryPage() {
 
             <div className={styles.actions}>
                 <Button size={'large'} variant={'secondary'} onClick={handleClear}  className={styles.actionButton}>지우기</Button>
-                <Button size={'large'}  onClick={handleSave} className={styles.actionButton}>생성하기</Button>
+                <Button size={'large'} onClick={handleSave} className={styles.actionButton}>생성하기</Button>
             </div>
         </div>
     )
