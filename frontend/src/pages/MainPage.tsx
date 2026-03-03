@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUser from '../hooks/useUser';
 import styles from './MainPage.module.css';
 import { formatDate } from '../utils/date-util';
 import { useNavigate } from 'react-router-dom';
+import { getDiaries } from '../api/DiaryApi';
 
 function MainPage() {
     const navigate = useNavigate();
     const { username } = useUser();
     const [currentDate, setCurrentDate] = useState(new Date());
+    const [diaryMap, setDiaryMap] = useState<Record<string, number>>({})
 
     // 현재 선택된 달력의 월을 기반으로 캘린더의 날짜 리스트 구하기
     const year = currentDate.getFullYear();
@@ -48,6 +50,21 @@ function MainPage() {
             }
         })
     }
+
+    useEffect(()=>{
+        if(!username) return;
+
+        (async () => {
+            const diaries = await getDiaries(username);
+            const map:Record<string, number> = {};
+
+            for(const diary of diaries) {
+                map[formatDate(new Date(diary.date))] = diary.id;
+            }
+
+            setDiaryMap(map);
+        })();
+    }, [])
     
     return (
         <div className={styles.root}>
@@ -81,6 +98,10 @@ function MainPage() {
                             return <div key={index}/>
                         }
 
+                        const diaryId = diaryMap[item.key];
+
+                        console.log(diaryId)
+
                         return (
                             <div 
                                 key={item?.key} 
@@ -88,6 +109,7 @@ function MainPage() {
                                 onClick={() => handleDateClick(item.date)}
                                 >
                                 {item.date.getDate()}
+                                {diaryId !== undefined && <div className={styles.diaryDot} />}
                             </div>
                         )
                     })}
