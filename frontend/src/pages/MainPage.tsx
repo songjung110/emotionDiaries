@@ -43,12 +43,23 @@ function MainPage() {
         setCurrentDate(new Date(year, month + 1, 1));
     }
 
-    const handleDateClick = (date: Date) => {
-        navigate('/diary', {
-            state: {
-                date
-            }
-        })
+    const handleDateClick = (date: Date, diaryId?: number) => {
+
+        if(diaryId === undefined) {
+            navigate('/diary', {
+                state: {
+                    date
+                }
+            })
+        } else {
+            navigate('/chat', {
+                state: {
+                    diaryId
+                }
+            })
+        }
+
+
     }
 
     useEffect(()=>{
@@ -100,13 +111,11 @@ function MainPage() {
 
                         const diaryId = diaryMap[item.key];
 
-                        console.log(diaryId)
-
                         return (
                             <div 
                                 key={item?.key} 
                                 className={`${styles.dateCell} ${todayKey === item.key ? styles.dateCellActive : ''}`}
-                                onClick={() => handleDateClick(item.date)}
+                                onClick={() => handleDateClick(item.date, diaryId)}
                                 >
                                 {item.date.getDate()}
                                 {diaryId !== undefined && <div className={styles.diaryDot} />}
