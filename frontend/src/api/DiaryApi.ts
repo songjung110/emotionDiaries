@@ -7,6 +7,6 @@ export async function createDiary(data: DiaryRequest) {
 }
 
 export async function getDiaries(username: string) {
-    const response = await apiClient.get<DiaryDto[]>(`/diary${username}`);
+    const response = await apiClient.get<DiaryDto[]>(`/diary/${username}`);
     return response.data;
 }
